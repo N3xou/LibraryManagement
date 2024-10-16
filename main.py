@@ -1,19 +1,4 @@
-# This is a sample Python script.
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
 class Book:
     def __init__(self, title, author, year, available = True):
         self.title = title
@@ -22,20 +7,56 @@ class Book:
         self.available = available
     def __str__(self):
         status = "Dostępna." if self.available else "Nie dostępna."
-        return f"Tytuł: {self.title}\nAutor: {self.author}\nRok wydania: {self.year}Dostępność: {status}"
+        return f"\nTytuł: {self.title}\nAutor: {self.author}\nRok wydania: {self.year}\nDostępność: {status}"
     def borrow(self):
         if self.available:
             self.available = False
-            return f'Wypożyczono "{self.title}".'
+            print(f'Wypożyczono {self.title}.')
         else:
-            return f'Książka {self.title} nie jest dostępna na ten moment.'
+            print(f'Książka {self.title} nie jest dostępna na ten moment.')
     def return_book(self):
         if not self.available:
             self.available = 'True'
-            return f'Zwrócono książkę {self.title}.'
+            print(f'Zwrócono książkę {self.title}.')
         else:
-            return f'Nie wypożyczano książki {self.title} dlatego nie może być zwrócona.'
+            print(f'Nie wypożyczano książki {self.title} dlatego nie może być zwrócona.')
 
+class Library:
+    def __init__(self, books = []):
+        self.books = books
+    def __str__(self):
+        if self.books:
+            return '\nW bibliotece znajdują się następujące książki: \n'.join([str(book) for book in self.books])
+        else:
+            return 'Biblioteka jest pusta.'
+    def add_book(self, book: 'Book'):
+        self.books.append(book)
+        print(f'Książka o tytule {book.title} została dodana do biblioteki.')
+    def search_by_title(self, title):
+        foundBooks = []
+        print(f'Odnalezione książki dla wszukanego tytułu: "{title}": ')
+        for book in self.books:
+            if title.lower() in book.title.lower():
+                print(book)
+                foundBooks.append(book)
+        return foundBooks
+    def search_by_author(self, author):
+        print(f'Odnalezione książki dla wszukanego autora: "{author}": ')
+        foundBooks = []
+        for book in self.books:
+            if author.lower() in book.author.lower():
+                print(book)
+                foundBooks.append(book)
+        return foundBooks
 book = Book('Tytuł1', 'Autor1 Aa', '1940')
+book2 = Book('Tytuł B', 'Autor2 Aa', '1945')
+book3 = Book('Tytuł 3C', 'Autor3 Aa', '1960')
 print(book)
 book.borrow()
+books = [book,book2]
+
+library = Library(books)
+print(library)
+library.add_book(book3)
+searchResultTitle = library.search_by_title('Tytuł')
+searchResultAuthor = library.search_by_author('Autor')
