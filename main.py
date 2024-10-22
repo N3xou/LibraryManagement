@@ -56,6 +56,7 @@ class Library:
         for book in self.books:
             if book.available:
                 print(book.title)
+
     def borrow_book(self, title):
         for book in self.books:
             if book.title.lower() == title.lower():
@@ -83,6 +84,14 @@ class Library:
             foundBooks[idx].borrow()
         else:
             print('Biblioteka nie posiada takiej książki. Sprawdź pisownie tytułu.')
+    def sorting(self, byAuthor = False, byTitle = False):
+        if byAuthor:
+            self.books = sorted(self.books, key = lambda book: book.author)
+        elif byTitle:
+            self.books = sorted(self.books, key = lambda book: book.title)
+
+
+
     def return_book(self, title):
         foundBooks = self.search_by_title(title)
         if len(foundBooks) == 1:
@@ -122,7 +131,8 @@ class LibraryApp:
             print('[4] Wyświetl dostępne książki.')
             print('[5] Wypożycz książkę.')
             print('[6] Zwróć książkę.')
-            print('[7] Wyjdź z programu.')
+            print('[7] Sortowanie')
+            print('[8] Wyjdź z programu.')
             option = int(input('Wprowadź swój wybór opcji: '))
             if option == 1:
                 titleToAdd = input('Podaj tytuł książki: ')
@@ -145,6 +155,15 @@ class LibraryApp:
                 titleToReturn = input('Podaj tytuł książki którą chcesz zwrócić: ')
                 self.library.return_book(titleToReturn)
             elif option == 7:
+                sortingtype = int(input('Podaj typ sortowania\n[1] Po autorze\n[2] Po tytule'))
+                if sortingtype == 1:
+                    self.library.sorting(byAuthor=True)
+                    print('Książki zostały posortowane po autorze')
+                elif sortingtype == 2:
+                    self.library.sorting(byTitle = True)
+                    print('Książki zostały posortowane po tytule')
+                else: continue
+            elif option == 8:
                 exit_program = True
             else:
                 print('Wybrano niepoprawny numer, spróbuj jeszcze raz.\n')
