@@ -119,7 +119,13 @@ class LibraryApp:
         book1 = Book('Lalka', 'Bolesław Prus', 1890)
         book2 = Book('Pan Tadeusz', 'Adam Mickiewicz', 1834)
         book3 = Book('Ferdydurke', 'Witold Gombrowicz', 1937)
-        self.library = Library([book1,book2,book3])
+        book4 = Book('Zbrodnia i kara', 'Fiodor Dostojewski', 1866)
+        book5 = Book('Wesele', 'Stanisław Wyspiański', 1901)
+        book6 = Book('Proces', 'Franz Kafka', 1925)
+        book7 = Book('Mistrz i Małgorzata', 'Michaił Bułhakow', 1967)
+        book8 = Book('Quo Vadis', 'Henryk Sienkiewicz', 1896)
+
+        self.library = Library([book1,book2,book3,book4,book5,book6,book7,book8])
     def run_library(self):
         exit_program = False
 
